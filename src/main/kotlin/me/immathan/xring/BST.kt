@@ -6,40 +6,40 @@ class BST {
 
     /**
      * To insert a Node into the BST
-     * @param dataNode Node to insert
+     * @param hashNode Node to insert
      */
-    fun insert(dataNode: Node) {
+    fun insert(hashNode: Node) {
         if (root == null) {
-            this.root = dataNode
+            this.root = hashNode
             return
         }
 
         var temp = root
         while (temp != null) {
-            if (dataNode.data < temp.data) {
+            if (hashNode.hash < temp.hash) {
                 if (temp.left != null) {
                     temp = temp.left
                 } else {
-                    dataNode.parent = temp
-                    temp.left = dataNode
-                    temp = dataNode
+                    hashNode.parent = temp
+                    temp.left = hashNode
+                    temp = hashNode
                 }
-            } else if (dataNode.data > temp.data) {
+            } else if (hashNode.hash > temp.hash) {
                 if (temp.right != null) {
                     temp = temp.right
                 } else {
-                    dataNode.parent = temp
-                    temp.right = dataNode
-                    temp = dataNode
+                    hashNode.parent = temp
+                    temp.right = hashNode
+                    temp = hashNode
                 }
-            } else { // This means that the data is already in the tree
+            } else { // This means that the hash is already in the tree
                 break
             }
         }
     }
 
     fun remove(node: Node) {
-        removeNode(root, node.data)
+        removeNode(root, node.hash)
     }
 
     fun inOrder() {
@@ -66,7 +66,7 @@ class BST {
 
     private fun preOrder(node: Node?) {
         if (node != null) {
-            System.out.print(" " + node.data)
+            System.out.print(" " + node.hash)
             inOrder(node.left)
             inOrder(node.right)
         }
@@ -76,14 +76,14 @@ class BST {
         if (node != null) {
             inOrder(node.left)
             inOrder(node.right)
-            System.out.print(" " + node.data)
+            System.out.print(" " + node.hash)
         }
     }
 
     private fun inOrder(node: Node?) {
         if (node != null) {
             inOrder(node.left)
-            System.out.print(" " + node.data)
+            System.out.print(" " + node.hash)
             inOrder(node.right)
         }
     }
@@ -118,15 +118,15 @@ class BST {
         return parent
     }
 
-    private fun removeNode(node: Node?, data: Int): Node? {
+    private fun removeNode(node: Node?, hash: Int): Node? {
         if (node == null) {
             return null
         }
 
-        if (data < node.data) {
-            node.left = removeNode(node.left, data)
-        } else if (data > node.data) {
-            node.right = removeNode(node.right, data)
+        if (hash < node.hash) {
+            node.left = removeNode(node.left, hash)
+        } else if (hash > node.hash) {
+            node.right = removeNode(node.right, hash)
         } else {
             if (node.left == null) {
                 return node.right
@@ -134,20 +134,20 @@ class BST {
                 return node.left
             }
 
-            node.data = minNode(node.right)!!.data
-            node.right = removeNode(node.right, node.data)
+            node.hash = minNode(node.right)!!.hash
+            node.right = removeNode(node.right, node.hash)
         }
 
         return node
     }
 
     /**
-     * To search for a data into the BST
-     * @param data Integer data to search
-     * @return true if the data is present
+     * To search for a hash into the BST
+     * @param hash Integer hash to search
+     * @return true if the hash is present
      */
-    fun search(data: Int): Boolean {
-        return searchNode(root, data) != null
+    fun search(hash: Int): Boolean {
+        return searchNode(root, hash) != null
     }
 
     fun min(): Node? {
@@ -180,14 +180,14 @@ class BST {
         return node
     }
 
-    private fun searchNode(node: Node?, data: Int): Node? {
+    private fun searchNode(node: Node?, hash: Int): Node? {
         if (node == null) {
             return null
         }
-        if (node.data < data) {
-            return searchNode(node.right, data)
-        } else if (node.data > data) {
-            return searchNode(node.left, data)
+        if (node.hash < hash) {
+            return searchNode(node.right, hash)
+        } else if (node.hash > hash) {
+            return searchNode(node.left, hash)
         }
         return node
     }

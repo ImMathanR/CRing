@@ -1,5 +1,9 @@
 package me.immathan.xring
 
-abstract class Request {
-    abstract fun finished()
+class Request(val url: String) {
+
+    fun finished() {
+
+    }
+
 }

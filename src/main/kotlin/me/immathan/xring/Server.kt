@@ -13,4 +13,12 @@ class Server(var address: String) {
         }
     }
 
+    override fun equals(other: Any?): Boolean {
+        return (other as Server).address == this.address
+    }
+
+    override fun hashCode(): Int {
+        return address.hashCode()
+    }
+
 }
