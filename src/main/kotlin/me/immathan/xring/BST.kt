@@ -1,5 +1,7 @@
 package me.immathan.xring
 
+import kotlin.math.truncate
+
 class BST {
 
     var root: Node? = null
@@ -52,6 +54,39 @@ class BST {
 
     fun postOrder() {
         postOrder(root)
+    }
+
+    fun nearest(value: Int): Int {
+        val node = searchNode(root, value)
+        if(node != null) {
+            return node.hash
+        } else {
+            if(root == null) {
+                return 0
+            }
+            
+            while (temp != null) {
+                if (value < temp.hash) {
+                    if (temp.left != null) {
+                        temp = temp.left
+                    } else {
+                        hashNode.parent = temp
+                        temp.left = hashNode
+                        temp = hashNode
+                    }
+                } else if (hashNode.hash > temp.hash) {
+                    if (temp.right != null) {
+                        temp = temp.right
+                    } else {
+                        hashNode.parent = temp
+                        temp.right = hashNode
+                        temp = hashNode
+                    }
+                } else { // This means that the hash is already in the tree
+                    break
+                }
+            }
+        }
     }
 
     fun predecessor(value: Int): Node? {
